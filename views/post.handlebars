@@ -1,0 +1,62 @@
+<div class="post-card">
+  <div class="post-card-header">
+    <h1>{{post.dataValues.title}}</h1>
+  </div>
+  <div class="post-card-body">
+    {{#if error}}
+      <p>{{error}}</p>
+    {{/if}}
+
+    <div class="post">
+      <p>{{post.dataValues.content}}</p>
+      <p class="post-meta">Author:
+        {{post.user.dataValues.username}}
+        | Created at:
+        {{formatDate post.dataValues.createdAt}}</p>
+    </div>
+  </div>
+</div>
+
+<h2>Comments</h2>
+{{#if post.comments.length}}
+  <div class="comment-card-container">
+    {{#each post.comments}}
+      <div class="comment-card">
+        <div class="comment-card-body">
+          <p>{{dataValues.content}}</p>
+        </div>
+        <div class="comment-card-footer">
+          <p class="comment-meta">Author:
+            {{user.dataValues.username}}
+            | Created at:
+            {{formatDate dataValues.createdAt}}</p>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+{{else}}
+  <p>No comments yet.</p>
+{{/if}}
+
+{{#if loggedIn}}
+  <div class="comment-form-card">
+    <div class="comment-form-card-header">
+      <h3>Add a Comment</h3>
+    </div>
+    <div class="comment-form-card-body">
+      <form
+        action="/posts/{{post.dataValues.id}}/comments"
+        method="POST"
+        class="comment-form"
+      >
+        <div>
+          <label for="content">Comment:</label>
+          <textarea id="content" name="content" required></textarea>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+{{else}}
+  <p>Please <a href="/login">log in</a> to leave a comment.</p>
+{{/if}}

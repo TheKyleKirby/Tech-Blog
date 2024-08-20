@@ -1,0 +1,32 @@
+<h1>Welcome to the CodeCraft Blog</h1>
+
+{{#if error}}
+  <p>{{error}}</p>
+{{/if}}
+
+{{#if posts}}
+{{else}}
+  <p>No posts found.</p>
+{{/if}}
+
+<h2>Recent Posts</h2>
+{{#if posts.length}}
+  <div class="post-card-container">
+    {{#each posts}}
+      <div class="post-card">
+        <div class="post-card-header">
+          <h3><a href="/posts/{{dataValues.id}}">{{dataValues.title}}</a></h3>
+          <p>Author: {{user.dataValues.username}}</p>
+        </div>
+        <div class="post-card-body">
+          <p>{{dataValues.content}}</p>
+        </div>
+        <div class="post-card-footer">
+          <p>Created at: {{formatDate dataValues.createdAt}}</p>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+{{else}}
+  <p>No posts found.</p>
+{{/if}}
